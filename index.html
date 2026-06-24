@@ -4,6 +4,24 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Antonin — Développeur web Lyon</title>
+
+  <!-- Open Graph — preview WhatsApp / réseaux quand le lien est partagé -->
+  <meta property="og:title" content="Antonin — Développeur web Lyon">
+  <meta property="og:description" content="Je crée votre site en moins de 2 semaines. Sans frais de création. Sans que vous ayez à vous occuper de quoi que ce soit.">
+  <meta property="og:image" content="https://maxencebonnetcarrier-ship-it.github.io/maxence-web-lyon/photo.jpg">
+  <meta property="og:url" content="https://maxencebonnetcarrier-ship-it.github.io/maxence-web-lyon/">
+  <meta property="og:type" content="website">
+
+  <!-- Google Analytics — remplacer G-XXXXXXXXXX par votre Measurement ID -->
+  <!-- Créer le compte en 2 min sur analytics.google.com → Admin → Create Property -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -556,7 +574,7 @@
     <div class="cta-box reveal">
       <h2>Vous seriez curieux de voir ce que ça donne pour votre commerce&nbsp;?</h2>
       <p class="cta-note">Pas de grosse facture à avancer — abonnement mensuel à partir de 49 €/mois, sans engagement.</p>
-      <a href="https://wa.me/33630712842" class="btn-wa">
+      <a href="https://wa.me/33630712842?text=Bonjour%20Antonin%2C%20j%27ai%20vu%20votre%20page%20%E2%80%94%20je%20suis%20int%C3%A9ress%C3%A9(e)%20par%20un%20site%20pour%20mon%20commerce." class="btn-wa">
         💬 Me répondre sur WhatsApp
       </a>
       <div class="cta-trust">
@@ -577,7 +595,7 @@
 
 <!-- Sticky CTA mobile -->
 <div class="sticky-cta">
-  <a href="https://wa.me/33630712842">💬 Me répondre sur WhatsApp</a>
+  <a href="https://wa.me/33630712842?text=Bonjour%20Antonin%2C%20j%27ai%20vu%20votre%20page%20%E2%80%94%20je%20suis%20int%C3%A9ress%C3%A9(e)%20par%20un%20site%20pour%20mon%20commerce.">💬 Me répondre sur WhatsApp</a>
 </div>
 
 <script>
@@ -586,6 +604,13 @@
     { threshold: 0.12, rootMargin: '0px 0px -32px 0px' }
   );
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Tracking clic WhatsApp → visible dans Google Analytics sous "whatsapp_click"
+  document.querySelectorAll('.btn-wa, .sticky-cta a').forEach(el => {
+    el.addEventListener('click', () => {
+      if (typeof gtag !== 'undefined') gtag('event', 'whatsapp_click', { event_category: 'CTA' });
+    });
+  });
 </script>
 
 </body>

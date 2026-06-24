@@ -4,280 +4,557 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Antonin — Développeur web Lyon</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
+    /* ─── RESET ─── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    /* ─── TOKENS ─── */
     :root {
-      --navy:   #1B2A4A;
-      --white:  #FFFFFF;
-      --gray-bg:#F5F5F5;
-      --gray:   #6B7280;
-      --gray-lt:#9CA3AF;
-      --green:  #25D366;
-      --green-d:#1DAE55;
-      --radius: 12px;
+      --bg:       #FAFBFF;
+      --bg2:      #F1F5F9;
+      --card:     #FFFFFF;
+      --border:   #E2E8F0;
+      --navy:     #1E3A5F;
+      --blue:     #2563EB;
+      --blue-lt:  #EFF6FF;
+      --green:    #25D366;
+      --green-d:  #1aad4d;
+      --dark:     #1E293B;
+      --text:     #475569;
+      --text-dim: #94A3B8;
+      --r:        14px;
+      --r-lg:     20px;
     }
+
+    html { scroll-behavior: smooth; }
 
     body {
-      font-family: 'Inter', sans-serif;
-      color: var(--navy);
-      background: var(--white);
-      line-height: 1.6;
-      padding-bottom: 80px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--bg);
+      color: var(--dark);
+      line-height: 1.65;
+      overflow-x: hidden;
     }
 
+    /* ─── LAYOUT ─── */
     .container {
-      max-width: 680px;
+      max-width: 760px;
       margin: 0 auto;
       padding: 0 24px;
     }
+    section { padding: 80px 0; }
 
-    section { padding: 56px 0; }
-    section:nth-child(even) { background: var(--gray-bg); }
+    /* ─── TYPE ─── */
+    h1 {
+      font-size: clamp(1.85rem, 6vw, 2.75rem);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      color: var(--dark);
+    }
+    h2 {
+      font-size: clamp(1.35rem, 4vw, 1.85rem);
+      font-weight: 800;
+      line-height: 1.2;
+      letter-spacing: -0.025em;
+      margin-bottom: 32px;
+      color: var(--dark);
+    }
+    p { color: var(--text); margin-bottom: 16px; }
+    .accent { color: var(--navy); }
 
-    h1 { font-size: clamp(1.6rem, 5vw, 2.2rem); font-weight: 700; line-height: 1.25; }
-    h2 { font-size: clamp(1.2rem, 4vw, 1.6rem); font-weight: 700; margin-bottom: 24px; }
-    p  { color: #374151; margin-bottom: 16px; }
+    /* ─── SCROLL REVEAL ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity .5s ease, transform .5s ease;
+    }
+    .reveal.on { opacity: 1; transform: none; }
+    .d1 { transition-delay: .07s; }
+    .d2 { transition-delay: .14s; }
+    .d3 { transition-delay: .21s; }
+    .d4 { transition-delay: .28s; }
 
-    /* HERO */
-    #hero { text-align: center; background: var(--white); padding-top: 64px; }
-    #hero h1 { margin-bottom: 16px; }
-    #hero .subtitle { font-size: 1.05rem; color: var(--gray); margin-bottom: 32px; }
+    /* ════════════════════════
+       HERO
+    ════════════════════════ */
+    #hero {
+      min-height: 100svh;
+      display: flex;
+      align-items: center;
+      text-align: center;
+      padding: 80px 0 64px;
+      background: linear-gradient(180deg, #FFFFFF 0%, var(--bg) 100%);
+      border-bottom: 1px solid var(--border);
+    }
+    #hero .container { width: 100%; }
 
+    /* Photo */
+    .photo-frame {
+      display: inline-block;
+      margin-bottom: 32px;
+    }
+    .photo-wrap {
+      position: relative;
+      display: inline-block;
+    }
     .profile-photo {
-      width: 200px; height: 200px;
+      width: 96px;
+      height: 96px;
       border-radius: 50%;
       object-fit: cover;
+      border: 4px solid var(--navy);
       display: block;
-      margin: 0 auto 24px;
-      box-shadow: 0 4px 24px rgba(27,42,74,.15);
-      border: 4px solid var(--white);
+    }
+    .photo-dot {
+      position: absolute;
+      bottom: 4px; right: 4px;
+      width: 16px; height: 16px;
+      background: var(--green);
+      border-radius: 50%;
+      border: 2px solid #fff;
     }
 
-    .badge-strip {
-      display: inline-flex;
-      gap: 8px;
+    /* Hero text */
+    #hero h1 { margin-bottom: 18px; }
+    .hero-sub {
+      font-size: 1.05rem;
+      color: var(--text);
+      max-width: 520px;
+      margin: 0 auto 36px;
+    }
+
+    /* Chips */
+    .chips {
+      display: flex;
       flex-wrap: wrap;
+      gap: 10px;
       justify-content: center;
+    }
+    .chip {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 7px 16px;
       font-size: .8rem;
-      color: var(--gray);
-      margin-top: 8px;
+      color: var(--text);
     }
-    .badge-strip span::after { content: " ·"; margin-left: 4px; }
-    .badge-strip span:last-child::after { content: ""; }
-
-    /* QUI JE SUIS */
-    #about p { font-size: 1.05rem; }
-
-    /* BÉNÉFICES */
-    .benefits-list { list-style: none; display: flex; flex-direction: column; gap: 20px; }
-    .benefits-list li {
-      display: flex; gap: 16px; align-items: flex-start;
-      background: var(--white); border-radius: var(--radius);
-      padding: 20px; box-shadow: 0 1px 6px rgba(0,0,0,.06);
+    .chip-hi {
+      background: var(--blue-lt);
+      border-color: #BFDBFE;
+      color: var(--blue);
+      font-weight: 600;
     }
-    .benefits-list .icon { font-size: 1.5rem; flex-shrink: 0; margin-top: 2px; }
-    .benefits-list .text { color: #374151; font-size: .95rem; }
 
-    /* EXEMPLES */
-    .examples-grid {
+    /* ════════════════════════
+       ABOUT
+    ════════════════════════ */
+    #about { background: var(--bg2); }
+    #about .glass {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 36px;
+      box-shadow: 0 2px 12px rgba(0,0,0,.06);
+    }
+    #about p { font-size: 1.03rem; }
+    #about p:last-child { margin-bottom: 0; }
+    #about strong { color: var(--dark); }
+
+    /* ════════════════════════
+       BENTO GRID
+    ════════════════════════ */
+    .bento {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+    @media (min-width: 560px) {
+      .bento-3 { grid-template-columns: repeat(3, 1fr); }
+      .bento-2 { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    .bcard {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 24px;
+      box-shadow: 0 1px 6px rgba(0,0,0,.05);
+      transition: box-shadow .25s, transform .25s;
+    }
+    .bcard:hover {
+      box-shadow: 0 6px 24px rgba(0,0,0,.1);
+      transform: translateY(-2px);
+    }
+    .bcard-icon {
+      font-size: 1.6rem;
+      margin-bottom: 14px;
+      display: block;
+    }
+    .bcard-title {
+      font-weight: 700;
+      font-size: .95rem;
+      margin-bottom: 8px;
+      color: var(--dark);
+    }
+    .bcard-text {
+      font-size: .88rem;
+      color: var(--text);
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    /* ════════════════════════
+       INCLUDES
+    ════════════════════════ */
+    #includes { background: var(--bg2); }
+
+    /* ════════════════════════
+       STEPS
+    ════════════════════════ */
+    .steps { display: flex; flex-direction: column; }
+    .step {
+      display: flex;
       gap: 20px;
     }
-    .example-card {
-      border-radius: var(--radius); overflow: hidden;
-      box-shadow: 0 1px 6px rgba(0,0,0,.08);
-      background: var(--white);
+    .step:not(:last-child) { padding-bottom: 40px; }
+    .step-spine {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex-shrink: 0;
+      width: 44px;
     }
-    .placeholder-img {
-      width: 100%; height: 130px;
-      background: #E5E7EB;
-      display: flex; align-items: center; justify-content: center;
-      color: var(--gray-lt); font-size: .8rem; text-align: center; padding: 8px;
-    }
-    .card-body { padding: 14px; }
-    .category { font-weight: 600; font-size: .95rem; margin-bottom: 6px; }
-    .tags { font-size: .78rem; color: var(--gray); }
-
-    /* ÉTAPES */
-    .steps { display: flex; flex-direction: column; gap: 28px; }
-    .step { display: flex; gap: 20px; align-items: flex-start; }
     .step-num {
-      width: 44px; height: 44px; border-radius: 50%;
-      background: var(--navy); color: var(--white);
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: var(--navy);
+      color: #fff;
       display: flex; align-items: center; justify-content: center;
-      font-size: 1.1rem; font-weight: 700; flex-shrink: 0;
+      font-weight: 800;
+      font-size: .9rem;
+      flex-shrink: 0;
     }
-    .step-title { font-weight: 600; font-size: 1rem; margin-bottom: 4px; }
-    .step-desc  { font-size: .9rem; color: var(--gray); }
-
-    /* CTA */
-    #cta { text-align: center; background: var(--white); }
-    #cta h2 { margin-bottom: 28px; }
-    .btn-whatsapp {
-      display: inline-flex; align-items: center; gap: 10px;
-      background: var(--green); color: var(--white);
-      text-decoration: none; font-weight: 600; font-size: 1.05rem;
-      padding: 16px 32px; border-radius: var(--radius);
-      transition: background .2s;
+    .step-line {
+      flex: 1;
+      width: 1px;
+      margin-top: 8px;
+      background: var(--border);
+      min-height: 28px;
     }
-    .btn-whatsapp:hover { background: var(--green-d); }
-    .cta-sub { margin-top: 14px; font-size: .82rem; color: var(--gray-lt); }
+    .step:last-child .step-line { display: none; }
+    .step-body { padding-top: 8px; }
+    .step-title {
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 6px;
+      color: var(--dark);
+    }
+    .step-desc { font-size: .9rem; color: var(--text); margin: 0; }
 
-    /* FOOTER */
+    /* ════════════════════════
+       CTA
+    ════════════════════════ */
+    #cta { text-align: center; background: var(--bg2); }
+    .cta-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-top: 3px solid var(--navy);
+      border-radius: var(--r-lg);
+      padding: 52px 40px;
+      box-shadow: 0 4px 20px rgba(0,0,0,.08);
+    }
+    .cta-box h2 { margin-bottom: 10px; }
+    .cta-note {
+      color: var(--text-dim);
+      font-size: .9rem;
+      margin-bottom: 32px;
+    }
+
+    .btn-wa {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #27c461, var(--green-d));
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1.05rem;
+      padding: 15px 36px;
+      border-radius: 100px;
+      transition: transform .2s, box-shadow .2s;
+      box-shadow: 0 4px 20px rgba(37 211 102 / .28);
+    }
+    .btn-wa:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 32px rgba(37 211 102 / .4);
+    }
+
+    .cta-trust {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 22px;
+    }
+    .trust-item {
+      font-size: .8rem;
+      color: var(--text-dim);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .trust-item::before {
+      content: '✓';
+      color: var(--green);
+      font-weight: 700;
+    }
+
+    /* ════════════════════════
+       FOOTER
+    ════════════════════════ */
     footer {
-      text-align: center; padding: 28px 24px;
-      font-size: .82rem; color: var(--gray-lt);
-      border-top: 1px solid #E5E7EB;
+      text-align: center;
+      padding: 24px;
+      font-size: .8rem;
+      color: var(--text-dim);
+      border-top: 1px solid var(--border);
     }
 
-    /* STICKY CTA mobile */
+    /* ════════════════════════
+       STICKY CTA (mobile)
+    ════════════════════════ */
     .sticky-cta {
       display: none;
-      position: fixed; bottom: 0; left: 0; right: 0; z-index: 99;
-      background: var(--green);
-      padding: 14px 24px;
-      text-align: center;
-      box-shadow: 0 -2px 12px rgba(0,0,0,.12);
+      position: fixed; bottom: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 10px 16px 16px;
+      background: rgba(255,255,255,.95);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-top: 1px solid var(--border);
     }
     .sticky-cta a {
-      color: var(--white); text-decoration: none;
-      font-weight: 600; font-size: 1rem;
-      display: flex; align-items: center; justify-content: center; gap: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #27c461, var(--green-d));
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 14px;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(37 211 102 / .25);
     }
 
-    @media (max-width: 640px) {
+    /* ════════════════════════
+       RESPONSIVE
+    ════════════════════════ */
+    @media (max-width: 559px) {
       .sticky-cta { display: block; }
-      #cta .btn-whatsapp { display: none; }
+      body { padding-bottom: 80px; }
+      #cta .btn-wa { display: none; }
+      section { padding: 60px 0; }
+      .cta-box { padding: 36px 20px; }
+      h1 { font-size: 1.8rem; }
     }
   </style>
 </head>
 <body>
 
-<!-- SECTION 1 — HERO -->
+<!-- ══════════════════════════════════════
+     HERO
+══════════════════════════════════════ -->
 <section id="hero">
   <div class="container">
-    <img src="photo.jpg" alt="Photo de Antonin" class="profile-photo">
-    <h1>Chaque semaine, des clients cherchent votre commerce sur Google — et tombent sur vos concurrents.</h1>
-    <p class="subtitle">Je crée votre site web en moins de 2 semaines. Sans frais de création. Sans que vous ayez à vous occuper de quoi que ce soit.</p>
-    <div class="badge-strip">
-      <span>En ligne en 14 jours — garanti</span>
-      <span>Pas de grosse facture à avancer</span>
-      <span>Disponible à Lyon, dans votre quartier</span>
+
+    <div class="photo-frame reveal">
+      <div class="photo-wrap">
+        <img src="photo.jpg" alt="Photo d'Antonin" class="profile-photo">
+        <div class="photo-dot" aria-label="Disponible"></div>
+      </div>
     </div>
+
+    <h1 class="reveal d1">
+      Chaque semaine, des clients cherchent<br>
+      votre commerce sur Google —<br>
+      <span class="accent">et tombent sur vos concurrents.</span>
+    </h1>
+
+    <p class="hero-sub reveal d2">
+      Je crée votre site web en moins de 2 semaines. Sans frais de création. Sans que vous ayez à vous occuper de quoi que ce soit.
+    </p>
+
+    <div class="chips reveal d3">
+      <span class="chip chip-hi">⚡ En ligne en 14 jours — garanti</span>
+      <span class="chip">Pas de grosse facture à avancer</span>
+      <span class="chip">📍 Disponible à Lyon, dans votre quartier</span>
+    </div>
+
   </div>
 </section>
 
-<!-- SECTION 2 — QUI JE SUIS -->
+<!-- ══════════════════════════════════════
+     QUI JE SUIS
+══════════════════════════════════════ -->
 <section id="about">
   <div class="container">
-    <h2>Qui suis-je ?</h2>
-    <p>Je m'appelle <strong>Antonin</strong>, développeur web indépendant lyonnais.</p>
-    <p>Je travaille exclusivement avec des commerces locaux — restaurants, salons, artisans — qui n'ont pas encore de site, ou dont le site actuel ne ramène aucun client.</p>
-    <p>Pas d'agence, pas de chef de projet qui relaie vos messages. Vous avez affaire directement à moi, du premier échange jusqu'à la mise en ligne — et après.</p>
-    <p>Je suis disponible pour se rencontrer où vous êtes, à Lyon, dans votre quartier.</p>
+    <h2 class="reveal">Qui suis-je ?</h2>
+    <div class="glass reveal d1">
+      <p>Je m'appelle <strong>Antonin</strong>, développeur web indépendant lyonnais.</p>
+      <p>Je travaille exclusivement avec des commerces locaux — restaurants, salons, artisans — qui n'ont pas encore de site, ou dont le site actuel ne ramène aucun client.</p>
+      <p>Pas d'agence, pas de chef de projet qui relaie vos messages. Vous avez affaire directement à moi, du premier échange jusqu'à la mise en ligne — et après.</p>
+      <p>Je suis disponible pour se rencontrer où vous êtes, à Lyon, dans votre quartier.</p>
+    </div>
   </div>
 </section>
 
-<!-- SECTION 3 — CE QUE VOUS GAGNEZ -->
+<!-- ══════════════════════════════════════
+     CE QUE ÇA CHANGE
+══════════════════════════════════════ -->
 <section id="benefits">
   <div class="container">
-    <h2>Ce que ça change, concrètement</h2>
-    <ul class="benefits-list">
-      <li>
-        <span class="icon">🔍</span>
-        <span class="text"><strong>Vos futurs clients vous trouvent.</strong> Près de 8 consommateurs sur 10 cherchent un commerce local sur Google avant de se déplacer. Sans site, vous n'existez pas pour eux — avec un site, ils vous appellent directement.</span>
-      </li>
-      <li>
-        <span class="icon">📞</span>
-        <span class="text"><strong>Zéro commission, zéro intermédiaire.</strong> La Fourchette, Uber Eats, Planity, Treatwell, Bark — toutes ces plateformes prennent 15 à 30% sur chaque client qu'elles vous envoient. Avec votre propre site, ces clients vous contactent directement. Vous gardez 100%.</span>
-      </li>
-      <li>
-        <span class="icon">🕐</span>
-        <span class="text"><strong>Votre vitrine ouverte 24h/24.</strong> Vos horaires, votre adresse, vos services — lisibles depuis un téléphone en 3 secondes, que vous soyez ouvert ou non.</span>
-      </li>
-    </ul>
-  </div>
-</section>
-
-<!-- SECTION 4 — CE QU'INCLUT VOTRE SITE -->
-<section id="includes">
-  <div class="container">
-    <h2>Ce qu'inclut votre site</h2>
-    <ul class="benefits-list">
-      <li>
-        <span class="icon">📱</span>
-        <span class="text"><strong>Design mobile optimisé</strong> — 7 visiteurs sur 10 arrivent sur téléphone. Votre site est lisible et rapide sur tous les écrans.</span>
-      </li>
-      <li>
-        <span class="icon">📍</span>
-        <span class="text"><strong>Fiche Google Maps créée et optimisée</strong> — vous apparaissez dans les recherches locales ("restaurant Lyon 6e", "coiffeur près de moi").</span>
-      </li>
-      <li>
-        <span class="icon">✏️</span>
-        <span class="text"><strong>Horaires, menu, services — toujours à jour</strong> — vous pouvez modifier votre contenu vous-même, simplement, sans avoir besoin de moi.</span>
-      </li>
-      <li>
-        <span class="icon">🔒</span>
-        <span class="text"><strong>Hébergement, nom de domaine, sécurité</strong> — tout est inclus. Vous n'avez rien à installer, rien à configurer.</span>
-      </li>
-    </ul>
-  </div>
-</section>
-
-<!-- SECTION 5 — COMMENT ÇA MARCHE -->
-<section id="how">
-  <div class="container">
-    <h2>Simple. Rapide. Sans jargon.</h2>
-    <div class="steps">
-      <div class="step">
-        <div class="step-num">①</div>
-        <div class="step-body">
-          <div class="step-title">Vous parlez, je comprends</div>
-          <div class="step-desc">Un échange de 20 minutes — par WhatsApp ou autour d'un café. Vous m'expliquez votre commerce en langage naturel. Aucune question technique de votre côté.</div>
-        </div>
+    <h2 class="reveal">Ce que ça change, concrètement</h2>
+    <div class="bento bento-3">
+      <div class="bcard reveal d1">
+        <span class="bcard-icon">🔍</span>
+        <div class="bcard-title">Vos futurs clients vous trouvent</div>
+        <p class="bcard-text">Le bouche-à-oreille ramène vos clients fidèles. Un site ramène ceux qui ne vous connaissent pas encore. Votre page Facebook n'apparaît pas quand quelqu'un cherche "restaurant Lyon 6e" sur Google.</p>
       </div>
-      <div class="step">
-        <div class="step-num">②</div>
-        <div class="step-body">
-          <div class="step-title">Je gère tout, vous validez</div>
-          <div class="step-desc">Design, textes, photos, mise en ligne — je m'en occupe. Vous recevez une preview avant publication et vous donnez le feu vert. Rien ne sort sans votre accord.</div>
-        </div>
+      <div class="bcard reveal d2">
+        <span class="bcard-icon">📞</span>
+        <div class="bcard-title">Zéro commission, zéro intermédiaire</div>
+        <p class="bcard-text">La Fourchette, Uber Eats, Planity, Treatwell, Bark — toutes ces plateformes prennent 15 à 30 % sur chaque client qu'elles vous envoient. Avec votre propre site, ces clients vous contactent directement. Vous gardez 100 %.</p>
       </div>
-      <div class="step">
-        <div class="step-num">③</div>
-        <div class="step-body">
-          <div class="step-title">Vos clients vous trouvent</div>
-          <div class="step-desc">Votre site est live. Dès ce soir, des clients peuvent vous trouver sur Google. Et si vous voulez changer vos horaires demain, je vous montre comment en 2 minutes.</div>
-        </div>
+      <div class="bcard reveal d3">
+        <span class="bcard-icon">🕐</span>
+        <div class="bcard-title">Votre vitrine ouverte 24 h/24</div>
+        <p class="bcard-text">Horaires, adresse, services — lisibles depuis un téléphone en 3 secondes, que vous soyez ouvert ou non.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- SECTION 6 — CTA -->
-<section id="cta">
+<!-- ══════════════════════════════════════
+     CE QU'INCLUT VOTRE SITE
+══════════════════════════════════════ -->
+<section id="includes">
   <div class="container">
-    <h2>Vous seriez curieux de voir ce que ça donne pour votre commerce ?</h2>
-    <p style="color:#6B7280; margin-bottom:28px; font-size:.95rem;">Pas de grosse facture à avancer — fonctionnement par abonnement mensuel, sans engagement à long terme.</p>
-    <a href="https://wa.me/[VOTRE_NUMERO]" class="btn-whatsapp">
-      💬 Me répondre sur WhatsApp
-    </a>
-    <p class="cta-sub">Réponse sous 24h · Devis gratuit · ✓ En ligne en 14 jours, garanti</p>
+    <h2 class="reveal">Ce qu'inclut votre site</h2>
+    <div class="bento bento-2">
+      <div class="bcard reveal d1">
+        <span class="bcard-icon">📱</span>
+        <div class="bcard-title">Design mobile optimisé</div>
+        <p class="bcard-text">7 visiteurs sur 10 arrivent sur téléphone. Votre site est lisible et rapide sur tous les écrans.</p>
+      </div>
+      <div class="bcard reveal d2">
+        <span class="bcard-icon">📍</span>
+        <div class="bcard-title">Fiche Google Maps créée et optimisée</div>
+        <p class="bcard-text">Vous apparaissez dans les recherches locales — "restaurant Lyon 6e", "coiffeur près de moi".</p>
+      </div>
+      <div class="bcard reveal d1">
+        <span class="bcard-icon">✏️</span>
+        <div class="bcard-title">Contenu toujours à jour</div>
+        <p class="bcard-text">Horaires, menu, services — vous pouvez tout modifier vous-même, simplement, sans avoir besoin de moi.</p>
+      </div>
+      <div class="bcard reveal d2">
+        <span class="bcard-icon">🔒</span>
+        <div class="bcard-title">Hébergement et sécurité inclus</div>
+        <p class="bcard-text">Nom de domaine, hébergement, certificat SSL — tout est inclus. Vous n'avez rien à installer, rien à configurer.</p>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- FOOTER -->
+<!-- ══════════════════════════════════════
+     COMMENT ÇA MARCHE
+══════════════════════════════════════ -->
+<section id="how">
+  <div class="container">
+    <h2 class="reveal">Simple. Rapide. Sans jargon.</h2>
+    <div class="steps">
+
+      <div class="step reveal d1">
+        <div class="step-spine">
+          <div class="step-num">1</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-body">
+          <div class="step-title">Vous parlez, je comprends</div>
+          <p class="step-desc">Un échange de 20 minutes — par WhatsApp ou autour d'un café. Vous m'expliquez votre commerce en langage naturel. Aucune question technique de votre côté.</p>
+        </div>
+      </div>
+
+      <div class="step reveal d2">
+        <div class="step-spine">
+          <div class="step-num">2</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-body">
+          <div class="step-title">Je gère tout, vous validez</div>
+          <p class="step-desc">Design, textes, photos, mise en ligne — je m'en occupe. Vous recevez une preview avant publication et vous donnez le feu vert. Rien ne sort sans votre accord.</p>
+        </div>
+      </div>
+
+      <div class="step reveal d3">
+        <div class="step-spine">
+          <div class="step-num">3</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-body">
+          <div class="step-title">Vos clients vous trouvent</div>
+          <p class="step-desc">Votre site est live. Dès ce soir, des clients peuvent vous trouver sur Google. Si vous voulez changer vos horaires, je vous montre en 2 minutes — si vous savez envoyer une photo sur WhatsApp, vous savez modifier votre site.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     CTA
+══════════════════════════════════════ -->
+<section id="cta">
+  <div class="container">
+    <div class="cta-box reveal">
+      <h2>Vous seriez curieux de voir ce que ça donne pour votre commerce&nbsp;?</h2>
+      <p class="cta-note">Pas de grosse facture à avancer — abonnement mensuel, sans engagement à long terme.</p>
+      <a href="https://wa.me/[VOTRE_NUMERO]" class="btn-wa">
+        💬 Me répondre sur WhatsApp
+      </a>
+      <div class="cta-trust">
+        <span class="trust-item">Réponse sous 24 h</span>
+        <span class="trust-item">Devis gratuit</span>
+        <span class="trust-item">En ligne en 14 jours, garanti</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     FOOTER
+══════════════════════════════════════ -->
 <footer>
   Antonin · Développeur web indépendant · Lyon, France
 </footer>
 
-<!-- STICKY CTA mobile uniquement -->
+<!-- Sticky CTA mobile -->
 <div class="sticky-cta">
   <a href="https://wa.me/[VOTRE_NUMERO]">💬 Me répondre sur WhatsApp</a>
 </div>
+
+<script>
+  const io = new IntersectionObserver(
+    entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('on'); }),
+    { threshold: 0.12, rootMargin: '0px 0px -32px 0px' }
+  );
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
 
 </body>
 </html>

@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Esquisse de votre site — Antonin</title>
+
+  <!-- OG statique — WhatsApp affiche ce preview quand le lien est partagé -->
+  <meta property="og:title" content="J'ai esquissé votre site 👀">
+  <meta property="og:description" content="Cliquez pour voir ce que pourrait donner votre présence en ligne — préparé par Antonin, dev web Lyon.">
+  <meta property="og:image" content="https://antonin-web.netlify.app/photo.jpg">
+  <meta property="og:url" content="https://antonin-web.netlify.app/preview">
+  <meta property="og:type" content="website">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:   #1E3A5F;
+      --blue:   #2563EB;
+      --green:  #25D366;
+      --green-d:#1aad4d;
+      --bg:     #FAFBFF;
+      --bg2:    #F1F5F9;
+      --border: #E2E8F0;
+      --text:   #475569;
+      --dark:   #1E293B;
+      --r:      12px;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: #E8EDF5;
+      color: var(--dark);
+      min-height: 100vh;
+    }
+
+    /* Bandeau "c'est une esquisse" */
+    .banner {
+      background: var(--navy);
+      color: #fff;
+      text-align: center;
+      padding: 13px 20px;
+      font-size: .82rem;
+      font-weight: 600;
+      line-height: 1.5;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .banner em { color: #93C5FD; font-style: normal; }
+
+    /* Wrapper du faux site (effet téléphone/frame) */
+    .frame {
+      max-width: 440px;
+      margin: 0 auto;
+      background: #fff;
+      box-shadow: 0 8px 48px rgba(0,0,0,.18);
+    }
+
+    /* Fausse barre navigateur */
+    .fake-browser {
+      background: #F8F9FA;
+      border-bottom: 1px solid #DDE3EC;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .fake-dots { display: flex; gap: 5px; }
+    .fake-dots span {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: #E2E8F0;
+      display: block;
+    }
+    .fake-url {
+      flex: 1;
+      background: #fff;
+      border: 1px solid #DDE3EC;
+      border-radius: 6px;
+      padding: 5px 10px;
+      font-size: .72rem;
+      color: #94A3B8;
+    }
+
+    /* Navigation du faux site */
+    .mock-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--border);
+      background: #fff;
+    }
+    .mock-logo {
+      font-weight: 800;
+      font-size: 1rem;
+      color: var(--navy);
+    }
+    .mock-nav-links {
+      display: flex;
+      gap: 14px;
+      font-size: .78rem;
+      color: var(--text);
+    }
+
+    /* Hero du faux site */
+    .mock-hero {
+      background: linear-gradient(135deg, var(--navy) 0%, #2563EB 100%);
+      color: #fff;
+      padding: 44px 24px 40px;
+      text-align: center;
+    }
+    .mock-hero h1 {
+      font-size: 1.55rem;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+    .mock-hero p {
+      font-size: .88rem;
+      opacity: .8;
+      margin-bottom: 22px;
+      line-height: 1.6;
+    }
+    .mock-hero-btn {
+      display: inline-block;
+      background: var(--green);
+      color: #fff;
+      padding: 11px 26px;
+      border-radius: 100px;
+      font-weight: 700;
+      font-size: .88rem;
+      text-decoration: none;
+      pointer-events: none;
+    }
+
+    /* Section cards */
+    .mock-section {
+      padding: 28px 20px;
+      background: var(--bg2);
+      position: relative;
+    }
+    .mock-section-title {
+      font-size: .95rem;
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 14px;
+    }
+    .mock-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .mock-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 14px;
+    }
+    .mock-card-icon { font-size: 1.3rem; margin-bottom: 7px; }
+    .mock-card-title { font-size: .82rem; font-weight: 700; margin-bottom: 4px; color: var(--dark); }
+    .mock-card-text { font-size: .76rem; color: var(--text); line-height: 1.5; }
+
+    /* Fade en bas de la section cards — effet "à compléter" */
+    .mock-section::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 60px;
+      background: linear-gradient(0deg, rgba(241,245,249,1) 0%, transparent 100%);
+      pointer-events: none;
+    }
+
+    /* Section contact */
+    .mock-contact {
+      padding: 24px 20px 28px;
+      text-align: center;
+      background: #fff;
+    }
+    .mock-contact-title {
+      font-size: .9rem;
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 10px;
+    }
+    .mock-contact-line {
+      font-size: .82rem;
+      color: var(--text);
+      margin-bottom: 5px;
+    }
+
+    /* CTA final */
+    .preview-cta {
+      background: var(--navy);
+      padding: 32px 24px;
+      text-align: center;
+    }
+    .preview-cta h2 {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.35;
+      margin-bottom: 6px;
+    }
+    .preview-cta-sub {
+      font-size: .82rem;
+      color: rgba(255,255,255,.65);
+      margin-bottom: 20px;
+    }
+    .preview-cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--green);
+      color: #fff;
+      padding: 13px 28px;
+      border-radius: 100px;
+      font-weight: 700;
+      font-size: .92rem;
+      text-decoration: none;
+      box-shadow: 0 4px 16px rgba(37,211,102,.3);
+    }
+    .preview-cta-note {
+      margin-top: 12px;
+      font-size: .75rem;
+      color: rgba(255,255,255,.5);
+    }
+
+    .watermark {
+      text-align: center;
+      padding: 14px;
+      font-size: .75rem;
+      color: #94A3B8;
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+    }
+    .watermark a { color: var(--blue); text-decoration: none; }
+  </style>
+</head>
+<body>
+
+<div class="banner">
+  Esquisse préparée par <em>Antonin</em> · Ce n'est pas le résultat final — juste une idée de direction
+</div>
+
+<div class="frame">
+
+  <!-- Fausse barre navigateur -->
+  <div class="fake-browser">
+    <div class="fake-dots">
+      <span></span><span></span><span></span>
+    </div>
+    <div class="fake-url" id="fake-url">votre-commerce.fr</div>
+  </div>
+
+  <!-- Nav -->
+  <nav class="mock-nav">
+    <div class="mock-logo" id="mock-logo">Votre commerce</div>
+    <div class="mock-nav-links">
+      <span>Accueil</span>
+      <span>Services</span>
+      <span>Contact</span>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <div class="mock-hero">
+    <h1 id="mock-h1">Bienvenue</h1>
+    <p id="mock-sub">Lyon · Ouvert du mardi au dimanche</p>
+    <a class="mock-hero-btn" id="mock-cta-btn">Nous contacter</a>
+  </div>
+
+  <!-- Cards -->
+  <div class="mock-section">
+    <div class="mock-section-title" id="mock-section-title">Nos prestations</div>
+    <div class="mock-cards" id="mock-cards"></div>
+  </div>
+
+  <!-- Contact -->
+  <div class="mock-contact">
+    <div class="mock-contact-title">Nous trouver</div>
+    <div class="mock-contact-line" id="mock-adresse">📍 Lyon</div>
+    <div class="mock-contact-line">🕐 Lun–Sam · 9h–19h</div>
+    <div class="mock-contact-line" id="mock-tel"></div>
+  </div>
+
+  <!-- CTA -->
+  <div class="preview-cta">
+    <h2 id="cta-title">Vous aimez cette direction ?</h2>
+    <div class="preview-cta-sub">Ce n'est qu'une esquisse — le vrai site sera adapté à votre image, en 14 jours.</div>
+    <a id="cta-wa" href="https://wa.me/33630712842" class="preview-cta-btn">
+      💬 Répondre à Antonin
+    </a>
+    <div class="preview-cta-note">Sans engagement · À partir de 49€/mois</div>
+  </div>
+
+  <div class="watermark">
+    Esquisse par <a href="https://antonin-web.netlify.app">Antonin · Développeur web Lyon</a>
+  </div>
+
+</div>
+
+<script>
+  const p = new URLSearchParams(window.location.search);
+  const nom  = p.get('nom')  || 'Votre commerce';
+  const type = p.get('type') || 'artisan';
+  const tel  = p.get('tel')  || '';
+
+  const CONTENT = {
+    resto: {
+      h1:           `Bienvenue\nchez ${nom}`,
+      sub:          `Restaurant · Lyon · Cuisine faite maison`,
+      ctaBtn:       'Réserver une table',
+      sectionTitle: 'Notre carte',
+      fakeUrl:      nom.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '') + '.fr',
+      cards: [
+        { icon: '🍽️', title: 'Carte & Plats', text: 'Cuisine de saison, produits locaux, suggestions du marché renouvelées chaque semaine.' },
+        { icon: '🍷', title: 'Cave & Vins',   text: 'Sélection de vins locaux et naturels, accord avec chaque plat.' },
+        { icon: '📅', title: 'Réservation',   text: 'Par téléphone ou en ligne · Réponse sous 2h · Groupes bienvenus.' },
+        { icon: '⏰', title: 'Horaires',      text: 'Mar–Sam : 12h–14h · 19h–22h\nDim : 12h–15h · Lun : fermé' },
+      ]
+    },
+    beaute: {
+      h1:           nom,
+      sub:          `Coiffure & Beauté · Lyon · Sur rendez-vous`,
+      ctaBtn:       'Prendre rendez-vous',
+      sectionTitle: 'Nos prestations',
+      fakeUrl:      nom.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '') + '.fr',
+      cards: [
+        { icon: '✂️', title: 'Coupe & Coiffure', text: 'Coupe femme, homme, enfant — conseil personnalisé et résultat soigné.' },
+        { icon: '🎨', title: 'Couleur & Mèches', text: 'Balayage, ombrée, couleur naturelle — adapté à votre carnation.' },
+        { icon: '💆', title: 'Soins & Traitements', text: 'Kératine, hydratation, brushing — cheveux transformés.' },
+        { icon: '📅', title: 'Rendez-vous',      text: 'Lun–Sam · Réservation en ligne ou par téléphone · Rappel SMS.' },
+      ]
+    },
+    artisan: {
+      h1:           nom,
+      sub:          `Artisan à Lyon · Devis gratuit sous 24h`,
+      ctaBtn:       'Demander un devis',
+      sectionTitle: 'Nos prestations',
+      fakeUrl:      nom.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '') + '.fr',
+      cards: [
+        { icon: '🔧', title: 'Nos interventions', text: 'Intervention rapide sur Lyon et agglomération — diagnostic gratuit.' },
+        { icon: '⭐', title: 'Qualité garantie',  text: 'Travail soigné, matériaux de qualité, garantie sur toutes nos interventions.' },
+        { icon: '💬', title: 'Contact rapide',   text: 'Appel ou message — réponse dans la journée.' },
+        { icon: '📍', title: 'Zone d\'intervention', text: 'Lyon et agglo · Déplacement inclus dans le devis.' },
+      ]
+    }
+  };
+
+  const c = CONTENT[type] || CONTENT.artisan;
+
+  document.getElementById('mock-logo').textContent         = nom;
+  document.getElementById('mock-h1').innerHTML             = c.h1.replace('\n', '<br>');
+  document.getElementById('mock-sub').textContent          = c.sub;
+  document.getElementById('mock-cta-btn').textContent      = c.ctaBtn;
+  document.getElementById('mock-section-title').textContent = c.sectionTitle;
+  document.getElementById('fake-url').textContent          = c.fakeUrl;
+  document.getElementById('cta-title').textContent         = `Vous aimez cette direction pour ${nom} ?`;
+
+  if (tel) document.getElementById('mock-tel').textContent = `📞 ${tel}`;
+
+  document.getElementById('mock-cards').innerHTML = c.cards.map(card => `
+    <div class="mock-card">
+      <div class="mock-card-icon">${card.icon}</div>
+      <div class="mock-card-title">${card.title}</div>
+      <div class="mock-card-text">${card.text.replace('\n', '<br>')}</div>
+    </div>
+  `).join('');
+
+  // WA pré-rempli avec leur nom
+  const waMsg = encodeURIComponent(`Bonjour Antonin, j'ai vu l'esquisse pour ${nom} — je suis intéressé(e).`);
+  document.getElementById('cta-wa').href = `https://wa.me/33630712842?text=${waMsg}`;
+</script>
+
+</body>
+</html>
